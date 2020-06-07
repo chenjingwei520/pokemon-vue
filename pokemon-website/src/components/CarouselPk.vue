@@ -12,6 +12,9 @@
 		<CarouselItem>
 			<div class="demo-carousel"><img src="../assets/carousel4.jpg" alt=""></div>
 		</CarouselItem>
+		<CarouselItem>
+			<div class="demo-carousel"><img src="../assets/carousel5.jpg" alt=""></div>
+		</CarouselItem>
 	</Carousel>
 </template>
 <script>

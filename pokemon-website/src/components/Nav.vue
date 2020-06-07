@@ -37,7 +37,7 @@
 		-webkit-box-align: center;
 		align-items: center;
 		/*为了便于查看区域范围大小，故而加个背景色*/
-		padding: 0 20px;
+		padding: 0 5px;
 		margin: 0 auto;
 		/*水平居中*/
 		/* margin-top: 30px; */
@@ -53,7 +53,7 @@
 	#nav ul {
 		width: 100%;
 		height: 60px;
-		overflow: auto;
+		overflow: hidden;
 		margin: 0 auto;
 		/* 如果导航栏选项多，允许滚动 */
 	}
