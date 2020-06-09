@@ -5,11 +5,9 @@
 </template>
 
 <script>
-
 	export default {
 		name: 'App',
-		components: {
-		}
+		components: {}
 	}
 </script>
 
@@ -22,6 +20,7 @@
 	li {
 		padding: 0;
 		margin: 0;
+		line-height: 0;
 	}
 
 	*,
@@ -48,5 +47,15 @@
 		padding: 60px 0 0 0;
 		/* margin-bottom: 60px; */
 		width: 100%;
+	}
+
+	.ivu-layout {
+		background-color: #FFFFFF !important;
+	}
+
+	.ivu-layout-header {
+		background-color: #FFFFFF !important;
+		padding: 0rem !important;
+		line-height: 0rem !important;
 	}
 </style>

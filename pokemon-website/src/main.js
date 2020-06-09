@@ -7,6 +7,8 @@ import 'view-design/dist/styles/iview.css';
 import Home from './components/Home/Home.vue'
 import Login from './components/Login/Login.vue'
 import Signup from './components/Signup/Signup.vue'
+import Movie from './components/Movie/Movie.vue'
+import Shop from './components/Shop/Shop.vue'
 
 Vue.use(ViewUI);
 
@@ -29,6 +31,14 @@ const router = new VueRouter({
 		{
 			path: '/signup',
 			component: Signup
+		},
+		{
+			path: '/movie',
+			component: Movie
+		},
+		{
+			path: '/shop',
+			component: Shop
 		}
 	],
 	//路由模式为历史模式

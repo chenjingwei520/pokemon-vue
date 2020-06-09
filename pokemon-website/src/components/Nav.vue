@@ -8,12 +8,24 @@
 			</h1>
 		</div>
 		<ul>
-			<li class="nav-item"><router-link to="/" class="game"><span>游戏</span></router-link></li>
-			<li class="nav-item"><router-link to="/" class="card"><span>卡牌游戏</span></router-link></li>
-			<li class="nav-item"><router-link to="/" class="movie"><span>电影</span></router-link></li>
-			<li class="nav-item"><router-link to="/" class="shopping"><span>商品</span></router-link></li>
-			<li class="nav-item"><router-link to="/" class="pokedex"><span>宝可梦图鉴</span></router-link></li>
-			<li class="nav-item nav-item-login"><router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link></li>
+			<li class="nav-item">
+				<router-link to="/game" class="game"><span>游戏</span></router-link>
+			</li>
+			<li class="nav-item">
+				<router-link to="/card" class="card"><span>卡牌游戏</span></router-link>
+			</li>
+			<li class="nav-item">
+				<router-link to="/movie" class="movie"><span>电影</span></router-link>
+			</li>
+			<li class="nav-item">
+				<router-link to="/shop" class="shopping"><span>商品</span></router-link>
+			</li>
+			<li class="nav-item">
+				<router-link to="/pokedex" class="pokedex"><span>宝可梦图鉴</span></router-link>
+			</li>
+			<li class="nav-item nav-item-login">
+				<router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -26,12 +38,13 @@
 
 <style>
 	#nav {
-		max-width: 1320px;
+		/* max-width: 1320px; */
+		box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
 		min-width: 1090px;
 		display: flex;
 		width: 100%;
 		height: 60px;
-		background: #F5F7F9;
+		background-color: #ffcc00;
 		justify-content: space-between;
 		-webkit-box-pack: justify;
 		-webkit-box-align: center;
@@ -168,14 +181,14 @@
 		float: right;
 		min-width: 150px;
 	}
-	
-	.nav-item-login img{
+
+	.nav-item-login img {
 		position: relative;
 		transform: translate(0, 35%);
 		border-radius: 50%;
 	}
 
-	.nav-item-login>a span{
+	.nav-item-login>a span {
 		margin-left: 10px;
 		color: #555;
 	}

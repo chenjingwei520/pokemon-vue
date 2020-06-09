@@ -1,6 +1,6 @@
 <template>
 	<div class="card-container" :class="{'card-goods': isGoods, 'card-game': isGame, 'card-movie': isMovie, 'card-card-game':isCardGame}">
-		<header class="card-header">
+		<header class="card-header" :class="{'hidden-header': isHideen}">
 			<div class="card-header-category">
 				<img src="../../assets/pokeball.png" alt="" width="20px">
 				{{ handleTitle }}
@@ -21,7 +21,8 @@
 			'goods': Boolean,
 			'game': Boolean,
 			'movie': Boolean,
-			'card_game': Boolean
+			'card_game': Boolean,
+			'hidden_header': Boolean
 		},
 		name: 'Card',
 		data() {
@@ -29,7 +30,8 @@
 				isGoods: this.goods,
 				isGame: this.game,
 				isMovie: this.movie,
-				isCardGame: this.card_game
+				isCardGame: this.card_game,
+				isHideen: this.hidden_header
 			}
 		},
 		computed: {
@@ -118,5 +120,9 @@
 		font-size: 1rem;
 		line-height: 1.375;
 		color: #000;
+	}
+	
+	.hidden-header {
+		display: none;
 	}
 </style>

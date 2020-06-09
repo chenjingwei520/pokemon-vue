@@ -1,7 +1,7 @@
 <template>
 	<div id="Signup">
 		<Layout style="background-color: #FFFFFF;">
-			<Header style="background-color: #FFFFFF;">
+			<Header style="background-color: #FFFFFF;padding: 0rem; line-height: 0rem;">
 				<Nav />
 			</Header>
 			<Content class="content-main">
@@ -27,8 +27,8 @@
 						</FormItem>
 					</Form>
 				</div>
-
 			</Content>
+			<Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
 		</Layout>
 	</div>
 </template>

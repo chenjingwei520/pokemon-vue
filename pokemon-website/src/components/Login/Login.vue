@@ -1,7 +1,7 @@
 <template>
 	<div id="login">
 		<Layout style="background-color: #FFFFFF;">
-			<Header style="background-color: #FFFFFF;">
+			<Header style="background-color: #FFFFFF;line-height: 0px; padding: 0px;">
 				<Nav />
 			</Header>
 			<Content class="content-main">
@@ -33,6 +33,7 @@
 					</div>
 				</div>
 			</Content>
+			<Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
 		</Layout>
 	</div>
 </template>
