@@ -29,9 +29,11 @@
 		box-sizing: border-box;
 	}
 
-	@media screen and (max-width: 767px) body {
-		font-size: 1.4rem;
-		min-width: 320px;
+	@media screen and (max-width: 767px) {
+		body {
+			font-size: 1rem;
+			min-width: 320px;
+		}
 	}
 
 	ul {

@@ -9,6 +9,7 @@ import Login from './components/Login/Login.vue'
 import Signup from './components/Signup/Signup.vue'
 import Movie from './components/Movie/Movie.vue'
 import Shop from './components/Shop/Shop.vue'
+import Pokedex from './components/Pokedex/Pokedex.vue'
 
 Vue.use(ViewUI);
 
@@ -39,6 +40,10 @@ const router = new VueRouter({
 		{
 			path: '/shop',
 			component: Shop
+		},
+		{
+			path: '/pokedex',
+			component: Pokedex
 		}
 	],
 	//路由模式为历史模式

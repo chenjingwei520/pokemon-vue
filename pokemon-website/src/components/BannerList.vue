@@ -48,8 +48,10 @@
 		box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
 	}
 
-	@media screen and (max-width: 767px) .banner-list {
-		padding: 0 15px;
-		margin-bottom: 0;
+	@media screen and (max-width: 767px) {
+		.banner-list {
+			padding: 0 15px;
+			margin-bottom: 0;
+		}
 	}
 </style>
