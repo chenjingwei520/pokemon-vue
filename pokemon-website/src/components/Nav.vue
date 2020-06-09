@@ -2,18 +2,18 @@
 	<div id="nav">
 		<div class="logo">
 			<h1 class="logo-name">
-				<a href="/">
+				<router-link to="/">
 					<img src="../assets/pokemo-logo.png" alt="pokemon logo" width="150px">
-				</a>
+				</router-link>
 			</h1>
 		</div>
 		<ul>
-			<li class="nav-item"><a class="game"><span>游戏</span></a></li>
-			<li class="nav-item"><a class="card"><span>卡牌游戏</span></a></li>
-			<li class="nav-item"><a class="movie"><span>电影</span></a></li>
-			<li class="nav-item"><a class="shopping"><span>商品</span></a></li>
-			<li class="nav-item"><a class="pokedex"><span>宝可梦图鉴</span></a></li>
-			<li class="nav-item nav-item-login"><a class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></a></li>
+			<li class="nav-item"><router-link to="/" class="game"><span>游戏</span></router-link></li>
+			<li class="nav-item"><router-link to="/" class="card"><span>卡牌游戏</span></router-link></li>
+			<li class="nav-item"><router-link to="/" class="movie"><span>电影</span></router-link></li>
+			<li class="nav-item"><router-link to="/" class="shopping"><span>商品</span></router-link></li>
+			<li class="nav-item"><router-link to="/" class="pokedex"><span>宝可梦图鉴</span></router-link></li>
+			<li class="nav-item nav-item-login"><router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link></li>
 		</ul>
 	</div>
 </template>
