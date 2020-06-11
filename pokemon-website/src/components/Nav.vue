@@ -23,7 +23,10 @@
 			<li class="nav-item">
 				<router-link to="/pokedex" class="pokedex"><span>宝可梦图鉴</span></router-link>
 			</li>
-			<li class="nav-item nav-item-login">
+			<li class="nav-item" v-if="isLogin">
+				<router-link to="/user" class="user"><span>{{name}}</span></router-link>
+			</li>
+			<li class="nav-item nav-item-login" v-if="!isLogin">
 				<router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link>
 			</li>
 		</ul>
@@ -32,7 +35,13 @@
 
 <script>
 	export default {
-		name: 'Nav'
+		name: 'Nav',
+		data() {
+			return {
+				name: '',
+				isLogin: false
+			}
+		}
 	}
 </script>
 

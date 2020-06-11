@@ -17,14 +17,14 @@
 						<div class="form-login">
 							<div class="input-box">
 								<Form ref="formItem" :model="formItem" :rule="ruleItem">
-									<FormItem prop="user">
-										<Input type="text" v-model="formItem.user" placeholder="用户名" />
+									<FormItem prop="account">
+										<Input type="text" v-model="formItem.account" placeholder="用户名" />
 									</FormItem>
 									<FormItem prop="password">
 										<Input type="password" v-model="formItem.password" placeholder="密码" />
 									</FormItem>
 									<FormItem>
-										<Button size="large" type="primary" @click="handleSubmit('formItem')">登 录</Button>
+										<Button size="large" type="primary" @click="handleSubmit(formItem)">登 录</Button>
 										<Button size="large" type="primary" @click="handleSignup" style="float: right;">注 册</Button>
 									</FormItem>
 								</Form>
@@ -45,11 +45,11 @@
 		data() {
 			return {
 				formItem: {
-					user: '',
+					account: '',
 					password: ''
 				},
 				ruleItem: {
-					user: [{
+					account: [{
 						required: true,
 						message: 'Please fill in the user name',
 						trigger: 'blur'
@@ -73,14 +73,21 @@
 			Nav,
 		},
 		methods: {
-			handleSubmit(name) {
-				this.$refs[name].validate((valid) => {
-					if (valid) {
-						this.$Message.success('Success!');
-					} else {
-						this.$Message.error('Fail!');
+			handleSubmit(formItem) {
+				(async () => {
+					try {
+						const res = await this.$http.post('http://localhost:8000/users/login', {
+							account: formItem.account,
+							password: formItem.password
+						})
+						const json = res.json();
+						console.log(json);
+						this.$store.commit('setUser', json);
+						this.$router.push('/');
+					} catch (e) {
+						this.$Message.error(e.body.message)
 					}
-				})
+				})()
 			},
 			handleSignup() {
 				this.$router.push('/signup')

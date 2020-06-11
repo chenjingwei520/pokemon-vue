@@ -5,6 +5,7 @@ const parameter = require('koa-parameter');
 const mongoose = require('mongoose');
 const app = new Koa();
 const routing = require('./routes');
+const cors = require('koa2-cors');
 const {
 	connectionStr
 } = require('./config');
@@ -23,6 +24,8 @@ app.use(error({
 		...rest
 	}
 }));
+
+app.use(cors())
 app.use(bodyparser()); // 必须放在路由前面，不然解析不了request.body
 app.use(parameter(app));
 routing(app);

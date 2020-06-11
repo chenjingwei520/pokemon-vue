@@ -17,13 +17,13 @@
 							<Input v-model="formTop.name" />
 						</FormItem>
 						<FormItem label="密码">
-							<Input v-model="formTop.password" />
+							<Input type="password" v-model="formTop.password" />
 						</FormItem>
 						<FormItem label="重复密码">
-							<Input v-model="formTop.repwd" />
+							<Input type="password" v-model="formTop.repwd" />
 						</FormItem>
 						<FormItem style="text-align: center;">
-							<Button size="large" type="primary" @click="handleSubmit('formTop')">注 册</Button>
+							<Button size="large" type="primary" @click="handleSubmit(formTop)">注 册</Button>
 						</FormItem>
 					</Form>
 				</div>
@@ -68,6 +68,26 @@
 					]
 				}
 			}
+		},
+		methods: {
+			handleSubmit(formTop) {
+				(async () => {
+					try {
+						const res = await this.$http.post('http://localhost:8000/users', {
+							account: formTop.account,
+							password: formTop.password,
+							name: formTop.name
+						});
+						const json = await res.json();
+						await this.$router.push('/login')
+						console.log(json)
+					} catch (e) {
+						console.log(e);
+						this.$Message.error(e.body.message)
+					}
+
+				})()
+			}
 		}
 	}
 </script>
@@ -78,7 +98,7 @@
 		margin: 0 auto;
 		padding: 60px 0;
 	}
-	
+
 	.ivu-form-item {
 		width: 420px;
 		margin: 12px auto;

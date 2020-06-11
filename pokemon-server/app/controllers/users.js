@@ -7,6 +7,10 @@ const {
 class UsersController {
 	async createUser(contxt) {
 		contxt.verifyParams({
+			account: {
+				type: 'string',
+				required: true
+			},
 			name: {
 				type: 'string',
 				required: true
@@ -17,9 +21,11 @@ class UsersController {
 			}
 		});
 		const {
+			account,
 			name
 		} = contxt.request.body;
 		const repeatedUser = await User.findOne({
+			account,
 			name
 		});
 		if (repeatedUser) {
@@ -68,7 +74,7 @@ class UsersController {
 
 	async login(contxt) {
 		contxt.verifyParams({
-			name: {
+			account: {
 				type: 'string',
 				required: true
 			},
@@ -84,16 +90,18 @@ class UsersController {
 		}
 		const {
 			_id,
-			name
+			account
 		} = user;
 		const token = jsonwebtoken.sign({
 			_id,
-			name
+			account
 		}, secret, {
 			expiresIn: '1d' //有效时间
 		});
 
 		contxt.body = {
+			_id,
+			account,
 			token
 		}
 	}

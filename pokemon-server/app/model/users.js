@@ -8,8 +8,11 @@ const {
 const userSchema = new Schema({
 	__v: {
 		type: Number,
-		required: true,
 		select: false
+	},
+	account: {
+		type: String,
+		required: true
 	},
 	name: {
 		type: String,
