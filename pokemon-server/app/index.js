@@ -32,11 +32,11 @@ app.use(error({
 
 
 app.use(cors())
-app.use(koaStatic(path.join(__dir, 'public')));
+app.use(koaStatic(path.join(__dirname, 'public')));
 app.use(koaBody({
 	multipart: true,
 	formidable: {
-		uploadDir: path.join(__dir, '/public/uploads'),
+		uploadDir: path.join(__dirname, '/public/uploads'),
 		keepExtensions: true
 	}
 })); // 必须放在路由前面，不然解析不了request.body

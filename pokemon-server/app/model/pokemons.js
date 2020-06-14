@@ -5,7 +5,7 @@ const {
 	model
 } = mongoose;
 
-class pokemonSchema = new Schema({
+const pokemonSchema = new Schema({
 	__v: {
 		type: Number,
 		select: false
@@ -19,11 +19,11 @@ class pokemonSchema = new Schema({
 		required: true
 	},
 	types: {
-		type: Array,
+		type: String,
 		required: true
 	},
 	weaknesses: {
-		type: Array,
+		type: String,
 		required: true
 	},
 	desc: {
@@ -31,7 +31,7 @@ class pokemonSchema = new Schema({
 		required: true
 	},
 	features: {
-		type: Array,
+		type: String,
 		required: true
 	},
 	height: {
@@ -47,7 +47,11 @@ class pokemonSchema = new Schema({
 		required: true
 	},
 	raceVale: {
-		type: Object,
+		type: String,
+		required: true
+	},
+	imgSrc: {
+		type: String,
 		required: true
 	}
 })

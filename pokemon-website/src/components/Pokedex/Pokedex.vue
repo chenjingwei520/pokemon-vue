@@ -151,11 +151,11 @@
 						</div>
 						<div class="pokemon-list">
 							<div>
-								<div class="pokemon-list--box--wrapper" v-for="(pokemon, index) in pokemons" :key="index">
-									<router-link to="/" class="pokemon-list--box visible loaded">
+								<div class="pokemon-list--box--wrapper" v-for="pokemon in pokemons" :key="pokemon._id">
+									<router-link :to="{path: '/pokemon/' + pokemon._id}" class="pokemon-list--box visible loaded">
 										<img :src="pokemon.imgSrc" alt="" class="pokemon-list--box__img">
-										<span class="pokemon-list--box__no size-16">{{ pokemon.pokeNo }}</span>
-										<span class="pokemon-list--box__name size-22">{{ pokemon.pokeName }}</span>
+										<span class="pokemon-list--box__no size-16">{{ pokemon.no }}</span>
+										<span class="pokemon-list--box__name size-22">{{ pokemon.name }}</span>
 										<span class="pokemon-list--box__subname size-20"></span>
 										<div class="pokemon-list--box__types">
 											<div class="pokemon-list--box__type size-12" v-for="type in pokemon.types" :key="type" :class="classType(type)">
@@ -194,30 +194,7 @@
 			return {
 				input: '',
 				advance_search_display: false,
-				pokemons: [{
-						pokeNo: '006',
-						pokeName: '超级喷火龙X',
-						types: ['fire', 'dragon'],
-						imgSrc: require('../../assets/penhuolongx.png')
-					},
-					{
-						pokeNo: '006',
-						pokeName: '超级喷火龙Y',
-						types: ['fire', 'flying'],
-						imgSrc: require('../../assets/penhuolongy.png')
-					},
-					{
-						pokeNo: '257',
-						pokeName: '火焰鸡X',
-						types: ['fire', 'fighting'],
-						imgSrc: require('../../assets/huoyanji.png')
-					},
-					{
-						pokeNo: '807',
-						pokeName: '杰拉奥拉',
-						types: ['electric'],
-						imgSrc: require('../../assets/jielaaola.png')
-					}
+				pokemons: [
 				],
 				typesName: {
 					'fire': '火',
@@ -231,8 +208,15 @@
 					'fighting': '格斗',
 					'fairy': '妖精',
 					'psychic': '超能力',
-					'grass': '草'
-				}
+					'grass': '草',
+					'water': '水',
+					'ground': '地面',
+					'normal': '一般',
+					'ice': '冰',
+					'dark': '恶',
+					'bug': '虫'
+				},
+				page: 1
 			}
 		},
 		methods: {
@@ -244,6 +228,16 @@
 				objectClass['pokemon-list--box__type--' + type] = true
 				return objectClass;
 			}
+		},
+		created() {
+			(async () => {
+				const res = await this.$http.get('http://localhost:8000/pokemons');
+				const json = await res.json();
+				json.forEach((item) => {
+					item.types = eval(item.types);
+				})
+				this.pokemons = json;
+			})()
 		},
 		computed: {}
 

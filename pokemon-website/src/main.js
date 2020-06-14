@@ -12,6 +12,7 @@ import Signup from './components/Signup/Signup.vue'
 import Movie from './components/Movie/Movie.vue'
 import Shop from './components/Shop/Shop.vue'
 import Pokedex from './components/Pokedex/Pokedex.vue'
+import pokemon from './components/Pokedex/pokemon.vue'
 import Game from './components/Game/Game.vue'
 
 Vue.use(ViewUI);
@@ -83,6 +84,10 @@ const router = new VueRouter({
 		{
 			path: '/pokedex',
 			component: Pokedex
+		},
+		{
+			path: '/pokemon/:id',
+			component: pokemon
 		},
 		{
 			path: '/game',
