@@ -1,24 +1,9 @@
 <template>
 	<div id="card-list">
 		<ul class="card-list-body">
-			<li class="card-element">
+			<li class="card-element" v-for="(item, index) in card_list" :key="index">
 				<a href="">
-					<Card :goods="true"></Card>
-				</a>
-			</li>
-			<li class="card-element">
-				<a href="">
-					<Card :movie="true"></Card>
-				</a>
-			</li>
-			<li class="card-element">
-				<a href="">
-					<Card :game="true"></Card>
-				</a>
-			</li>
-			<li class="card-element">
-				<a href="">
-					<Card :card_game="true"></Card>
+					<Card :type="item.type" :hidden_header="item.isHidden" :img_src="item.src" :title="item.title"></Card>
 				</a>
 			</li>
 		</ul>
@@ -29,10 +14,13 @@
 	import Card from './Card.vue'
 
 	export default {
+		props: {
+			'card_list': Array
+		},
 		name: 'CardList',
 		components: {
 			Card
-		}
+		},
 	}
 </script>
 

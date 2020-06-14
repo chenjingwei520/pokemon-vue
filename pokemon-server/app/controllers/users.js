@@ -90,18 +90,18 @@ class UsersController {
 		}
 		const {
 			_id,
-			account
+			name
 		} = user;
 		const token = jsonwebtoken.sign({
 			_id,
-			account
+			name
 		}, secret, {
 			expiresIn: '1d' //有效时间
 		});
 
 		contxt.body = {
 			_id,
-			account,
+			name,
 			token
 		}
 	}

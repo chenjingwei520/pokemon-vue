@@ -7,10 +7,10 @@
 			</div>
 		</header>
 		<figure class="card-thumb">
-			<img src="../../assets/goods1.jpg" alt="">
+			<img :src="imgSrc" alt="">
 		</figure>
 		<div class="card-content">
-			<p>Pokémon x LeSportsac聯乘系列 展開歷險之旅</p>
+			<p>{{ card_title }}</p>
 		</div>
 	</div>
 </template>
@@ -18,28 +18,29 @@
 <script>
 	export default {
 		props: {
-			'goods': Boolean,
-			'game': Boolean,
-			'movie': Boolean,
-			'card_game': Boolean,
-			'hidden_header': Boolean
+			'type': String,
+			'hidden_header': Boolean,
+			'img_src': String,
+			'title': String
 		},
 		name: 'Card',
 		data() {
 			return {
-				isGoods: this.goods,
-				isGame: this.game,
-				isMovie: this.movie,
-				isCardGame: this.card_game,
-				isHideen: this.hidden_header
+				isGoods: this.type === 'goods' ? true : false,
+				isGame: this.type === 'game' ? true : false,
+				isMovie: this.type === 'movie' ? true : false,
+				isCardGame: this.type === 'cardGame' ? true : false,
+				isHideen: this.hidden_header,
+				imgSrc: this.img_src ? this.img_src : "",
+				card_title: this.title ? this.title : ''
 			}
 		},
 		computed: {
 			handleTitle: function() {
-				if (this.goods) return '商品'
-				else if (this.game) return '游戏'
-				else if (this.movie) return '电影'
-				else if (this.card_game) return '卡牌游戏'
+				if (this.isGoods) return '商品'
+				else if (this.isGame) return '游戏'
+				else if (this.isMovie) return '电影'
+				else if (this.isCardGame) return '卡牌游戏'
 				else return '没有标题'
 			}
 		}

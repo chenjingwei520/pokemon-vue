@@ -122,10 +122,63 @@
 							</div>
 						</form>
 					</div>
+					<div class="pokemon-list-sub">
+						<div class="pokemon-advance-search">
+							<form>
+								<div class="pokemon-advance-search-close" style="display: block;">
+									<span class="pokemon-advance-search-close-toggle size-16">
+										进阶搜索
+									</span>
+								</div>
+							</form>
+							<div class="pokemon-advance-search-sort">
+								<div class="pokemon-advance-search-sort-close"></div>
+								<div class="pokemon-advance-search-sort-open" v-show="advance_search_display">
+									<div class="pokemon-advance-search-sort-open-header"></div>
+									<div class="pokemon-advance-search-sort-open-body">
+										<ul class="pokemon-advance-search-sort-open-items">
+											<li class="pokemon-advance-search-sort-open-item size-14">图鉴编号由小到大</li>
+											<li class="pokemon-advance-search-sort-open-item size-14">图鉴编号由小到大</li>
+											<li class="pokemon-advance-search-sort-open-item size-14">重量由轻至重</li>
+											<li class="pokemon-advance-search-sort-open-item size-14">重量由轻至重</li>
+											<li class="pokemon-advance-search-sort-open-item size-14">身高由低至高</li>
+											<li class="pokemon-advance-search-sort-open-item size-14">身高由低至高</li>
+										</ul>
+									</div>
+								</div>
+								<div class="pokemon-advance-search-sort-selected size-14" @click="handleAdvanceSearchDisplay">图鉴编号由小到大</div>
+							</div>
+						</div>
+						<div class="pokemon-list">
+							<div>
+								<div class="pokemon-list--box--wrapper" v-for="(pokemon, index) in pokemons" :key="index">
+									<router-link to="/" class="pokemon-list--box visible loaded">
+										<img :src="pokemon.imgSrc" alt="" class="pokemon-list--box__img">
+										<span class="pokemon-list--box__no size-16">{{ pokemon.pokeNo }}</span>
+										<span class="pokemon-list--box__name size-22">{{ pokemon.pokeName }}</span>
+										<span class="pokemon-list--box__subname size-20"></span>
+										<div class="pokemon-list--box__types">
+											<div class="pokemon-list--box__type size-12" v-for="type in pokemon.types" :key="type" :class="classType(type)">
+												<span>{{ typesName[type] }}</span>
+											</div>
+										</div>
+									</router-link>
+								</div>
+							</div>
+							<div class="pokemon-list__load-more">
+								<a>
+									<div class="pokemon-list__load-more__button size-14">
+										<span>查看更多</span>
+									</div>
+								</a>
+							</div>
+
+						</div>
+					</div>
 				</div>
 			</div>
 		</Content>
-		<!-- <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer> -->
+		<Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
 	</Layout>
 </template>
 
@@ -139,14 +192,72 @@
 		},
 		data() {
 			return {
-				input: ''
+				input: '',
+				advance_search_display: false,
+				pokemons: [{
+						pokeNo: '006',
+						pokeName: '超级喷火龙X',
+						types: ['fire', 'dragon'],
+						imgSrc: require('../../assets/penhuolongx.png')
+					},
+					{
+						pokeNo: '006',
+						pokeName: '超级喷火龙Y',
+						types: ['fire', 'flying'],
+						imgSrc: require('../../assets/penhuolongy.png')
+					},
+					{
+						pokeNo: '257',
+						pokeName: '火焰鸡X',
+						types: ['fire', 'fighting'],
+						imgSrc: require('../../assets/huoyanji.png')
+					},
+					{
+						pokeNo: '807',
+						pokeName: '杰拉奥拉',
+						types: ['electric'],
+						imgSrc: require('../../assets/jielaaola.png')
+					}
+				],
+				typesName: {
+					'fire': '火',
+					'dragon': '龙',
+					'flying': '飞行',
+					'electric': '电',
+					'steel': '钢',
+					'ghost': '幽灵',
+					'rock': '岩石',
+					'posion': '毒',
+					'fighting': '格斗',
+					'fairy': '妖精',
+					'psychic': '超能力',
+					'grass': '草'
+				}
 			}
-		}
+		},
+		methods: {
+			handleAdvanceSearchDisplay() {
+				this.advance_search_display = !this.advance_search_display;
+			},
+			classType(type) {
+				var objectClass = {}
+				objectClass['pokemon-list--box__type--' + type] = true
+				return objectClass;
+			}
+		},
+		computed: {}
 
 	}
 </script>
 
 <style>
+	.pokemon-list__load-more {
+		width: 100%;
+		/* display: none; */
+		padding-bottom: 3%;
+		text-align: center;
+	}
+
 	.pokemon-list-content {
 		background-image: url(../../assets/list_top_bg.jpg);
 		background-position: top;
@@ -194,7 +305,26 @@
 		width: 100%;
 	}
 
+	.pokemon-list__load-more__button {
+		color: #b3eafe;
+		position: relative;
+		display: inline-block;
+	}
 
+	.pokemon-list__load-more__button:before {
+		content: "";
+		display: block;
+	}
+
+	.pokemon-list__load-more__button span {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		left: 0;
+		text-align: center;
+		transform: translateY(-50%);
+		text-shadow: 0 0 5px #b3eafe, 0 0 5px #b3eafe;
+	}
 
 	@media screen and (min-width: 1401px) {
 		.pokemon-list .size-20 {
@@ -208,11 +338,28 @@
 		}
 
 		.pokemon-list .size-16 {
-			font-size: 1.3rem !important;
+			font-size: 1.6rem !important;
+		}
+
+		.pokemon-list .size-22 {
+			font-size: 2.2rem !important;
 		}
 	}
 
 	@media screen and (min-width: 768px) {
+
+
+
+		.pokemon-list__load-more__button:before {
+			padding-top: 10.8%;
+		}
+
+		.pokemon-list__load-more__button {
+			width: 46.2%;
+			background-image: url(../../assets/morebtn_bg.png);
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
 
 		.pokemon-list-header:after {
 			content: "";
@@ -286,6 +433,357 @@
 
 		.pokemon-list-main .pokemon-search-form:after {
 			padding-top: 7.14285714%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-close {
+			background-image: url(../../assets/advance_search_close_bg.png);
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-close:after {
+			padding-top: 7.07142857%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-close-toggle {
+			bottom: 0;
+			width: 30%;
+			margin-left: 35%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-close-toggle:after {
+			content: "";
+			height: 0;
+			display: block;
+			padding-top: 10.71428571%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search:after {
+			padding-top: 3.21428571%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort {
+			position: absolute;
+			bottom: 0;
+			width: 33.85714286%;
+			right: 2.85%;
+			z-index: 9999;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-close {
+			background-image: url(../../assets/sort_close_bg.png);
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-close:after {
+			padding-top: 16.03375527%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-open {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-open-header {
+			background-image: url(../../assets/sort_open_bg.png);
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-open-header:after {
+			padding-top: 15.82278481%;
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-open-body {
+			background-image: url(../../assets/sort_open_bg.png);
+		}
+
+		.pokemon-list-sub .pokemon-advance-search-sort-selected {
+			top: 1.5em;
+		}
+
+		.pokemon-list-sub .pokemon-list--box--wrapper {
+			width: 25%;
+		}
+	}
+
+	@keyframes visible_pokemon_list {
+		100% {
+			opacity: 1;
+		}
+	}
+
+	.pokemon-list-sub .pokemon-list--box.visible {
+		animation: visible_pokemon_list 1s both;
+	}
+
+	.pokemon-list-sub .pokemon-list--box {
+		display: block;
+		width: 100%;
+		opacity: 0;
+		background: transparent url(../../assets/list_pokemon_bg.png) 50% 50% no-repeat;
+		background-size: auto 100%;
+		position: relative;
+		margin-bottom: 1em;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__img {
+		position: absolute;
+		width: 60%;
+		left: 20%;
+		top: 8%;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__no {
+		position: absolute;
+		width: 80%;
+		left: 10%;
+		top: 57%;
+		color: #b4ebff;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__name {
+		position: absolute;
+		width: 80%;
+		left: 10%;
+		top: 62%;
+		color: #fff;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__subname {
+		position: absolute;
+		width: 80%;
+		left: 10%;
+		top: 72%;
+		color: #fff;
+	}
+
+	.pokemon-list-sub .pokemon-list--box--wrapper {
+		position: relative;
+		float: left;
+		display: block;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__types {
+		position: absolute;
+		width: 80%;
+		left: 10%;
+		bottom: 5%;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type {
+		width: 45%;
+		float: left;
+		position: relative;
+		border-radius: 1em;
+		border: 1px solid #000;
+		margin: .5em .25em;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type span {
+		position: relative;
+		color: #fff;
+		text-align: center;
+		width: 100%;
+		display: block;
+		text-shadow: 0 0 5px rgba(0, 0, 0, .75);
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type:nth-child(2n) {
+		float: right;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--fire {
+		border-color: #ff6900;
+		background-color: #ff3700;
+		box-shadow: 0 0 0.25em 0.03em #ff3700;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--dragon {
+		border-color: #5078dc;
+		background-color: #3c64c8;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #3c64c8;
+		box-shadow: 0 0 0.25em 0.03em #3c64c8;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--flying {
+		border-color: #78dcff;
+		background-color: #79bcd7;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #79bcd7;
+		box-shadow: 0 0 0.25em 0.03em #79bcd7;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--steel {
+		border-color: #aac8f0;
+		background-color: #96b4dc;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #96b4dc;
+		box-shadow: 0 0 0.25em 0.03em #96b4dc;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--electric {
+		border-color: #ffe100;
+		background-color: #e4b700;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #e4b700;
+		box-shadow: 0 0 0.25em 0.03em #e4b700;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--ghost {
+		border-color: #a08cff;
+		background-color: #8c78f0;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #8c78f0;
+		box-shadow: 0 0 0.25em 0.03em #8c78f0;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--poison {
+		border-color: #d28cd2;
+		background-color: #be78be;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #be78be;
+		box-shadow: 0 0 0.25em 0.03em #be78be;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--fighting {
+		border-color: #dc6900;
+		background-color: #c85500;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #c85500;
+		box-shadow: 0 0 0.25em 0.03em #c85500;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--fairy {
+		border-color: #ffafdc;
+		background-color: #ff7eb8;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #ff7eb8;
+		box-shadow: 0 0 0.25em 0.03em #ff7eb8;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--psychic {
+		border-color: #f08cdc;
+		background-color: #dc78c8;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #dc78c8;
+		box-shadow: 0 0 0.25em 0.03em #dc78c8;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--grass {
+		border-color: #b4f000;
+		background-color: #92bf19;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #92bf19;
+		box-shadow: 0 0 0.25em 0.03em #92bf19;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type {
+		width: 45%;
+		float: left;
+		position: relative;
+		border-radius: 1em;
+		border: 1px solid #000;
+		margin: .5em .25em;
+	}
+
+	.pokemon-list-sub .pokemon-list {
+		width: 100%;
+		padding: 2em 3%;
+	}
+
+	.pokemon-list-sub .pokemon-list--box:after {
+		content: "";
+		height: 0;
+		display: block;
+		padding-top: 152.74390244%;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__types:after,
+	.pokemon-list-sub .pokemon-list:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-open-header:after {
+		content: "";
+		height: 0;
+		display: block;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search:after {
+		content: "";
+		height: 0;
+		display: block;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-selected {
+		position: absolute;
+		color: #fff;
+		width: 100%;
+		height: 30px;
+		line-height: 2em;
+		text-align: center;
+		z-index: 110;
+		cursor: pointer;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-open-items {
+		padding: 0 0 1.5em;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-open-item {
+		color: #fff;
+		width: 86%;
+		margin: 0 auto;
+		text-align: center;
+		cursor: pointer;
+		padding: .3em 0;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-open-body {
+		background-size: 100% auto;
+		background-position: 50% 100%;
+		position: relative;
+		background-repeat: no-repeat;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-open-header {
+		background-size: 100% auto;
+		position: relative;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-open {
+		width: 100%;
+		/* display: none; */
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-close {
+		background-size: 100% auto;
+		position: relative;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-sort-close:after {
+		content: "";
+		height: 0;
+		display: block;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-close {
+		background-size: 100% auto;
+		position: relative;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-close:after {
+		content: "";
+		height: 0;
+		display: block;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search-close-toggle {
+		text-align: center;
+		cursor: pointer;
+		color: #fff;
+		text-shadow: 1px 1px 3px #fff, -1px -1px 3px #fff;
+		position: absolute;
+		display: block;
+	}
+
+	@media screen and (max-width: 1400px) and (min-width: 950px) {
+		.pokemon-list .size-16 {
+			font-size: 1.6vw !important;
+		}
+
+		.pokemon-list .size-14 {
+			font-size: 1.4vw !important;
 		}
 	}
 
@@ -511,5 +1009,18 @@
 		content: "";
 		height: 0;
 		display: block;
+	}
+
+	.pokemon-list-sub {
+		z-index: 110;
+		position: relative;
+		background-image: url(../../assets/list_bg.jpg);
+		background-position: top;
+		background-repeat: repeat;
+		background-size: 100% auto;
+	}
+
+	.pokemon-list-sub .pokemon-advance-search {
+		position: relative;
 	}
 </style>

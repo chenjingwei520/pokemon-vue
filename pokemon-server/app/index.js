@@ -1,11 +1,14 @@
 const Koa = require('koa');
-const bodyparser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const error = require('koa-json-error');
 const parameter = require('koa-parameter');
+const koaStatic = require('koa-static');
 const mongoose = require('mongoose');
 const app = new Koa();
 const routing = require('./routes');
 const cors = require('koa2-cors');
+const path = require('path');
+
 const {
 	connectionStr
 } = require('./config');
@@ -25,8 +28,18 @@ app.use(error({
 	}
 }));
 
+
+
+
 app.use(cors())
-app.use(bodyparser()); // 必须放在路由前面，不然解析不了request.body
+app.use(koaStatic(path.join(__dir, 'public')));
+app.use(koaBody({
+	multipart: true,
+	formidable: {
+		uploadDir: path.join(__dir, '/public/uploads'),
+		keepExtensions: true
+	}
+})); // 必须放在路由前面，不然解析不了request.body
 app.use(parameter(app));
 routing(app);
 app.listen(8000, () => console.log('程序启动在 8000 端口了'));

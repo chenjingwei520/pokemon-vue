@@ -12,6 +12,7 @@ import Signup from './components/Signup/Signup.vue'
 import Movie from './components/Movie/Movie.vue'
 import Shop from './components/Shop/Shop.vue'
 import Pokedex from './components/Pokedex/Pokedex.vue'
+import Game from './components/Game/Game.vue'
 
 Vue.use(ViewUI);
 
@@ -23,25 +24,34 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
-		user: {
-			id: '',
-			name: '',
-			token: '' //初始化token
-		},
+		id: '',
+		name: '',
+		token: '', //初始化token
+		isLogin: false
 	},
 	mutations: {
 		//存储token
 		setUser(state, json) {
-			state.user = json;
-			localStorage.user = json;
-		}
+			state.isLogin = true;
+			state.id = json.id;
+			state.name = json.name;
+			state.token = json.token;
+			localStorage.token = json.token;
+			localStorage.name = json.name;
+			localStorage.id = json.id;
+			localStorage.isLogin = true;
+		},
+		
 	},
-	getter: {
+	getters: {
 		getUser(state) {
-			if(!state.user) {
-				state.user = localStorage.getItem('user');
+			if(!state.token) {
+				state.token = localStorage.getItem('token');
+				state.isLogin = localStorage.getItem('isLogin');
+				state.id = localStorage.getItem('id');
+				state.name = localStorage.getItem('name');
 			}
-			return state.user;
+			return state;
 		}
 	}
 })
@@ -73,6 +83,10 @@ const router = new VueRouter({
 		{
 			path: '/pokedex',
 			component: Pokedex
+		},
+		{
+			path: '/game',
+			component: Game
 		}
 	],
 	//路由模式为历史模式

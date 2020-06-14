@@ -12,7 +12,7 @@
 				<router-link to="/game" class="game"><span>游戏</span></router-link>
 			</li>
 			<li class="nav-item">
-				<router-link to="/card" class="card"><span>卡牌游戏</span></router-link>
+				<router-link to="/" class="card"><span>卡牌游戏</span></router-link>
 			</li>
 			<li class="nav-item">
 				<router-link to="/movie" class="movie"><span>电影</span></router-link>
@@ -24,7 +24,7 @@
 				<router-link to="/pokedex" class="pokedex"><span>宝可梦图鉴</span></router-link>
 			</li>
 			<li class="nav-item" v-if="isLogin">
-				<router-link to="/user" class="user"><span>{{name}}</span></router-link>
+				<router-link to="/user" class="user"><span>{{ name }}</span></router-link>
 			</li>
 			<li class="nav-item nav-item-login" v-if="!isLogin">
 				<router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link>
@@ -34,14 +34,16 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'Vuex';
 	export default {
 		name: 'Nav',
 		data() {
 			return {
-				name: '',
-				isLogin: false
 			}
-		}
+		},
+		computed: mapState(['name','isLogin'])
 	}
 </script>
 
