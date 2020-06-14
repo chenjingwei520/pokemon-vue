@@ -98,9 +98,12 @@
 </script>
 
 <style>
-	.pokemon-carousel {
-		max-width: 1320px;
-		min-width: 1090px;
-		margin: 0 auto;
+	@media screen and (min-width: 768px){
+		.pokemon-carousel {
+			max-width: 1320px;
+			min-width: 1090px;
+			margin: 0 auto;
+		}
 	}
+	
 </style>

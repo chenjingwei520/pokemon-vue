@@ -180,11 +180,23 @@
 		flex-wrap: wrap;
 	}
 
-	.serie-item {
-		width: calc(20% - 10px);
-		box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
-		margin: 0 5px 20px;
+	@media screen and (max-width: 767px) {
+		.serie-item {
+			width: calc(50% - 10px);
+			box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
+			margin: 0 5px 20px;
+		}
 	}
+
+	@media screen and (min-width: 768px) {
+		.serie-item {
+			width: calc(20% - 10px);
+			box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
+			margin: 0 5px 20px;
+		}
+	}
+
+
 
 	.button-block {
 		display: -webkit-box;

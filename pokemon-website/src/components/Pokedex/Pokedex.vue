@@ -14,100 +14,7 @@
 						</div>
 					</div>
 					<div class="pokemon-list-main">
-						<div class="pokemon-img">
-							<img src="../../assets/pokemon_list_bg.png" alt="" class="pokemon-img__back">
-							<div>
-								<div class="pokemon-img-center visible">
-									<router-link to="/">
-										<img src="../../assets/aerzhousi.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-01 visible">
-									<router-link to="/">
-										<img src="../../assets/penhuolongx.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-02 visible">
-									<router-link to="/">
-										<img src="../../assets/penhuolongy.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-03 visible">
-									<router-link to="/">
-										<img src="../../assets/banjila.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-04 visible">
-									<router-link to="/">
-										<img src="../../assets/baolilong.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-05 visible">
-									<router-link to="/">
-										<img src="../../assets/dazuiwa.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-06 visible">
-									<router-link to="/">
-										<img src="../../assets/jielaaola.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-07 visible">
-									<router-link to="/">
-										<img src="../../assets/huoyanji.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-08 visible">
-									<router-link to="/">
-										<img src="../../assets/kapuqiqi.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-09 visible">
-									<router-link to="/">
-										<img src="../../assets/lukaliou.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-10 visible">
-									<router-link to="/">
-										<img src="../../assets/caogang.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-11 visible">
-									<router-link to="/">
-										<img src="../../assets/xiyiwang.png" alt="">
-									</router-link>
-								</div>
-							</div>
-							<div>
-								<div class="pokemon-img-random pokemon-img-12 visible">
-									<router-link to="/">
-										<img src="../../assets/ladiyasi.png" alt="">
-									</router-link>
-								</div>
-							</div>
-						</div>
+						<PokemonImg></PokemonImg>
 						<form class="pokemon-search">
 							<div class="pokemon-search-title size-16">
 								<span id="pokemon_search_title" style="font-size: 100%;visibility: visible;line-height: 1.6">使用名称或者图鉴编号搜索</span>
@@ -151,19 +58,7 @@
 						</div>
 						<div class="pokemon-list">
 							<div>
-								<div class="pokemon-list--box--wrapper" v-for="pokemon in pokemons" :key="pokemon._id">
-									<router-link :to="{path: '/pokemon/' + pokemon._id}" class="pokemon-list--box visible loaded">
-										<img :src="pokemon.imgSrc" alt="" class="pokemon-list--box__img">
-										<span class="pokemon-list--box__no size-16">{{ pokemon.no }}</span>
-										<span class="pokemon-list--box__name size-22">{{ pokemon.name }}</span>
-										<span class="pokemon-list--box__subname size-20"></span>
-										<div class="pokemon-list--box__types">
-											<div class="pokemon-list--box__type size-12" v-for="type in pokemon.types" :key="type" :class="classType(type)">
-												<span>{{ typesName[type] }}</span>
-											</div>
-										</div>
-									</router-link>
-								</div>
+								<PokemonCard :pokemons="pokemons"></PokemonCard>
 							</div>
 							<div class="pokemon-list__load-more">
 								<a>
@@ -184,38 +79,21 @@
 
 
 <script>
-	import Nav from '../Nav.vue'
+	import Nav from '../Nav.vue';
+	import PokemonImg from './PokemonImg.vue'
+	import PokemonCard from './pokemonCard.vue'
 	export default {
 		name: 'Pokedex',
 		components: {
-			Nav
+			Nav,
+			PokemonImg,
+			PokemonCard
 		},
 		data() {
 			return {
 				input: '',
 				advance_search_display: false,
-				pokemons: [
-				],
-				typesName: {
-					'fire': '火',
-					'dragon': '龙',
-					'flying': '飞行',
-					'electric': '电',
-					'steel': '钢',
-					'ghost': '幽灵',
-					'rock': '岩石',
-					'posion': '毒',
-					'fighting': '格斗',
-					'fairy': '妖精',
-					'psychic': '超能力',
-					'grass': '草',
-					'water': '水',
-					'ground': '地面',
-					'normal': '一般',
-					'ice': '冰',
-					'dark': '恶',
-					'bug': '虫'
-				},
+				pokemons: [],
 				page: 1
 			}
 		},
@@ -223,11 +101,7 @@
 			handleAdvanceSearchDisplay() {
 				this.advance_search_display = !this.advance_search_display;
 			},
-			classType(type) {
-				var objectClass = {}
-				objectClass['pokemon-list--box__type--' + type] = true
-				return objectClass;
-			}
+
 		},
 		created() {
 			(async () => {
@@ -252,15 +126,7 @@
 		text-align: center;
 	}
 
-	.pokemon-list-content {
-		background-image: url(../../assets/list_top_bg.jpg);
-		background-position: top;
-		background-repeat: no-repeat;
-		background-size: 100% auto;
-		background-color: #0a141e;
-		position: relative;
-		overflow: hidden;
-	}
+
 
 	.pokemon-list {
 		color: #000;
@@ -310,6 +176,15 @@
 		display: block;
 	}
 
+	.pokemon-list-content {
+		background-position: top;
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+		background-color: #0a141e;
+		position: relative;
+		overflow: hidden;
+	}
+
 	.pokemon-list__load-more__button span {
 		position: absolute;
 		top: 50%;
@@ -340,9 +215,102 @@
 		}
 	}
 
+	@media screen and (max-width: 767px) {
+
+		.pokemon-list-main .pokemon-img-05 {
+			top: -10%;
+			left: 1%;
+		}
+
+		.pokemon-list-main .pokemon-img-random {
+			width: 28%;
+		}
+
+		.pokemon-list-main .pokemon-img-01,
+		.pokemon-list-main .pokemon-img-02,
+		.pokemon-list-main .pokemon-img-03,
+		.pokemon-list-main .pokemon-img-04 {
+			display: none;
+		}
+
+		body>.contents {
+			font-size: 1.4rem;
+			min-width: 320px;
+		}
+
+		.pokemon-list-content {
+			background-image: url(../../assets/list_sp_top_bg.jpg);
+		}
+
+		.pokemon-list-header {
+			width: 100%;
+			z-index: 90;
+			position: absolute;
+		}
+
+		.pokemon-list-header:before {
+			content: "";
+			height: 0;
+			display: block;
+			padding-top: 7.2%;
+		}
+
+		.pokemon-list-header-inner {
+			position: relative;
+		}
+
+		.pokemon-list-header-inner:after {
+			content: "";
+			height: 0;
+			display: block;
+			padding-top: 9.33333333%;
+		}
+
+		.pokemon-list-header:after {
+			content: "";
+			height: 0;
+			display: block;
+			padding-top: 26.66666667%;
+		}
+
+		.pokemon-list .size-20 {
+			font-size: 6vw !important;
+		}
+
+		.pokemon-list-header span {
+			width: 80%;
+		}
+
+		.pokemon-list-main:before {
+			content: "";
+			height: 0;
+			display: block;
+			padding-top: 29.33333333%;
+			z-index: 100;
+		}
+
+		.pokemon-list-main .pokemon-img {
+			text-align: center;
+			position: relative;
+			z-index: 200;
+		}
+
+		.pokemon-list-main .pokemon-img__back {
+			display: none;
+		}
+
+		.pokemon-list-main .pokemon-img-06 {
+			top: auto;
+			bottom: 10%;
+			left: 1%;
+		}
+	}
+
 	@media screen and (min-width: 768px) {
 
-
+		.pokemon-list-content {
+			background-image: url(../../assets/list_top_bg.jpg);
+		}
 
 		.pokemon-list__load-more__button:before {
 			padding-top: 10.8%;
@@ -495,7 +463,19 @@
 		.pokemon-list-sub .pokemon-list--box--wrapper {
 			width: 25%;
 		}
+
+		.pokemon-list-main .pokemon-img-05 {
+			top: 30%;
+			left: 30.5%;
+		}
+
+		.pokemon-list-main .pokemon-img-06 {
+			top: 51%;
+			left: 30.5%;
+		}
 	}
+
+
 
 	@keyframes visible_pokemon_list {
 		100% {
@@ -657,6 +637,48 @@
 		background-color: #92bf19;
 		-webkit-box-shadow: 0 0 0.25em 0.03em #92bf19;
 		box-shadow: 0 0 0.25em 0.03em #92bf19;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--normal {
+		border-color: #dcdcdc;
+		background-color: #a0a0a0;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #a0a0a0;
+		box-shadow: 0 0 0.25em 0.03em #a0a0a0;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--water {
+		border-color: #14b9ff;
+		background-color: #0094e5;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #0094e5;
+		box-shadow: 0 0 0.25em 0.03em #0094e5;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--bug {
+		border-color: #46c846;
+		background-color: #32b432;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #32b432;
+		box-shadow: 0 0 0.25em 0.03em #32b432;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--dark {
+		border-color: #787878;
+		background-color: #646464;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #646464;
+		box-shadow: 0 0 0.25em 0.03em #646464;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--ground {
+		border-color: #fac85a;
+		background-color: #cca142;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #cca142;
+		box-shadow: 0 0 0.25em 0.03em #cca142;
+	}
+
+	.pokemon-list-sub .pokemon-list--box__type--rock {
+		border-color: #b48c64;
+		background-color: #a07850;
+		-webkit-box-shadow: 0 0 0.25em 0.03em #a07850;
+		box-shadow: 0 0 0.25em 0.03em #a07850;
 	}
 
 	.pokemon-list-sub .pokemon-list--box__type {
@@ -871,15 +893,11 @@
 	}
 
 	.pokemon-list-main .pokemon-img-05 {
-		top: 30%;
-		left: 30.5%;
 		-webkit-animation-delay: 1.5s;
 		animation-delay: 1.5s;
 	}
 
 	.pokemon-list-main .pokemon-img-06 {
-		top: 51%;
-		left: 30.5%;
 		-webkit-animation-delay: 1.5s;
 		animation-delay: 1.5s;
 	}

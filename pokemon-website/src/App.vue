@@ -30,7 +30,7 @@
 
 	@media screen and (max-width: 767px) {
 		body {
-			font-size: 1rem;
+			font-size: 1.4rem;
 			min-width: 320px;
 		}
 	}
@@ -43,7 +43,7 @@
 
 	.content-main {
 		max-width: 1320px;
-		min-width: 1090px;
+		/* min-width: 1090px; */
 		margin: 0 auto;
 		padding: 60px 0 0 0;
 		/* margin-bottom: 60px; */

@@ -3,7 +3,7 @@
 		<div class="banner-list-left">
 			<a href="">
 				<img src="../assets/banner_rigel_PC.jpg" class="hidden-xs" alt="">
-				<!-- <img src="../assets/banner_rigel_SP.jpg" class="visible-xs" alt=""> -->
+				<img src="../assets/banner_rigel_SP.jpg" class="visible-xs" alt="">
 			</a>
 		</div>
 		<div class="banner-list-right">
@@ -49,9 +49,30 @@
 	}
 
 	@media screen and (max-width: 767px) {
-		.banner-list {
+
+		.content-main {
+			padding: 25px 0 0;
+			margin-bottom: 30px;
+		}
+
+		#banner-list {
 			padding: 0 15px;
 			margin-bottom: 0;
 		}
+
+		.banner-list-left,
+		.banner-list-right {
+			width: 100%;
+			margin-bottom: 15px;
+		}
+
+		.hidden-xs {
+			display: none !important;
+		}
+	}
+
+	#banner-list img:hover {
+		opacity: .3;
+		transition: .2s linear;
 	}
 </style>

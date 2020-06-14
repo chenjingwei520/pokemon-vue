@@ -1,35 +1,55 @@
 <template>
-	<div id="nav">
-		<div class="logo">
-			<h1 class="logo-name">
-				<router-link to="/">
-					<img src="../assets/pokemo-logo.png" alt="pokemon logo" width="150px">
-				</router-link>
-			</h1>
+	<div id="nav" class="global-header">
+		<div class="global-header__body">
+			<div class="global-header__title">
+				<h1 class="global-header__site-name">
+					<a href="/">
+						<img src="../assets/pokemo-logo.png" alt="Pokemon" width="130">
+					</a>
+				</h1>
+			</div>
+			<nav class="nav-global">
+				<div class="nav-global__body">
+					<ul class="nav-global__list">
+						<li class="nav-global__item">
+							<router-link to="/game" class="game"><span>游戏</span></router-link>
+						</li>
+						<li class="nav-global__item">
+							<router-link to="/cardgame" class="card"><span>卡牌游戏</span></router-link>
+						</li>
+						<li class="nav-global__item">
+							<router-link to="/movie" class="movie"><span>电影</span></router-link>
+						</li>
+						<li class="nav-global__item">
+							<router-link to="/shop" class="shopping"><span>商品</span></router-link>
+						</li>
+						<li class="nav-global__item">
+							<router-link to="/pokedex" class="pokedex"><span>宝可梦图鉴</span></router-link>
+						</li>
+						<li class="nav-global__item .nav-global__item--what" v-if="isLogin">
+							<router-link to="/user" class="user"><span>{{ name }}</span></router-link>
+						</li>
+						<li class="nav-global__item nav-item-login nav-global__item--what" v-if="!isLogin">
+							<router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link>
+						</li>
+					</ul>
+					<div class="global-header__sp-close visible-xs">
+						<button>
+							<span>Close</span>
+						</button>
+					</div>
+				</div>
+			</nav>
 		</div>
-		<ul>
-			<li class="nav-item">
-				<router-link to="/game" class="game"><span>游戏</span></router-link>
-			</li>
-			<li class="nav-item">
-				<router-link to="/cardgame" class="card"><span>卡牌游戏</span></router-link>
-			</li>
-			<li class="nav-item">
-				<router-link to="/movie" class="movie"><span>电影</span></router-link>
-			</li>
-			<li class="nav-item">
-				<router-link to="/shop" class="shopping"><span>商品</span></router-link>
-			</li>
-			<li class="nav-item">
-				<router-link to="/pokedex" class="pokedex"><span>宝可梦图鉴</span></router-link>
-			</li>
-			<li class="nav-item" v-if="isLogin">
-				<router-link to="/user" class="user"><span>{{ name }}</span></router-link>
-			</li>
-			<li class="nav-item nav-item-login" v-if="!isLogin">
-				<router-link to="/login" class="login"><img src="../assets/pikaqiu.png" alt="user" width="34px" height="34px"><span>登录/注册</span></router-link>
-			</li>
-		</ul>
+
+
+		<div class="global-header__sp-menu visible-xs" @click="handleVisible()">
+			<button class="">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -41,70 +61,162 @@
 		name: 'Nav',
 		data() {
 			return {
+				isVisible: false
 			}
 		},
-		computed: mapState(['name','isLogin'])
+		methods: {
+			handleVisible() {
+				this.isVisible = !this.isVisible;
+				document.getElementsByClassName('nav-global')[0].style.display = this.isVisible ? 'block': '';
+			}
+		},
+		computed: mapState(['name', 'isLogin']),
+
 	}
 </script>
 
 <style>
-	#nav {
-		/* max-width: 1320px; */
-		box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
-		min-width: 1090px;
-		display: flex;
+	.global-header__sp-menu {
+		position: absolute;
+		left: 15px;
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+		z-index: 100;
+	}
+
+	.nav-global,
+	.nav-global__body {
 		width: 100%;
-		height: 60px;
-		background-color: #ffcc00;
+	}
+
+	.global-header__body {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
 		justify-content: space-between;
-		-webkit-box-pack: justify;
-		-webkit-box-align: center;
 		align-items: center;
-		/*为了便于查看区域范围大小，故而加个背景色*/
-		padding: 0 5px;
-		margin: 0 auto;
-		/*水平居中*/
-		/* margin-top: 30px; */
-		/*距离顶部30px*/
 	}
 
-	#nav .logo-name {
+	.global-header__site-name {
+		margin: 0;
 		font-size: 1rem;
-		width: 150px;
+		width: 170px;
 		text-align: center;
+		margin: 6px 0;
 	}
 
-	#nav ul {
-		width: 100%;
-		height: 60px;
-		overflow: hidden;
-		margin: 0 auto;
-		/* 如果导航栏选项多，允许滚动 */
+	.global-header__sp-menu>button {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		outline: 0;
+		padding: 0;
+		-webkit-appearance: none;
+		text-decoration: none;
+		width: 22px;
+		height: 18px;
+		display: block;
 	}
 
-	.nav-item {
-		float: left;
-		font-size: 16px;
-		font-weight: 700;
-		width: calc(100% / 6);
-		line-height: 60px;
-		list-style: none;
-		text-align: center;
+	.global-header__sp-menu>button span:nth-of-type(1) {
+		top: 7px;
 	}
 
-	.nav-item a {
+	.global-header__sp-menu>button span:nth-of-type(2) {
+		top: 14px;
+	}
+
+	.global-header__sp-menu>button span:nth-of-type(3) {
+		top: 0;
+	}
+
+	.global-header__sp-menu>button span {
+		background-color: #4F4F4F;
+		box-sizing: border-box;
+		display: inline-block;
+		height: 3px;
+		left: 5px;
+		border-radius: 10px;
+		position: absolute;
+		transition: all .4s;
+		width: 22px;
+	}
+
+	@media screen and (min-width: 768px) {
+		.visible-xs {
+			display: none !important;
+		}
+
+		.global-header__body {
+			max-width: 1320px;
+			width: 100%;
+			padding: 0 20px;
+			margin: 0 auto;
+		}
+
+		.nav-global {
+			display: block !important;
+		}
+
+	}
+
+	.nav-global__list {
+		display: -webkit-box;
+		display: -ms-flexbox;
 		display: flex;
+	}
+
+	.nav-global__item {
+		text-align: center;
+		margin: 0 2px;
+		width: calc(100% / 6);
+		min-height: 56px;
+		overflow: hidden;
+	}
+
+	.nav-global {
+		width: calc(100% - 170px);
+	}
+
+	.global-header {
+		padding: 2px 0;
+		background: #FFF;
+	}
+
+	.global-header__site-name a {
+		display: block;
+	}
+
+	.nav-global__item>a {
+		display: block;
+		text-decoration: none;
+		font-size: 1.4rem;
+		font-weight: 700;
+		padding: 13px 5px;
+		line-height: 1.1;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
 		justify-content: center;
 		height: 100%;
-		width: 100%;
-		text-decoration: none;
 		position: relative;
 		transition: .3s;
 	}
 
-	.nav-item a::after {
+	.nav-global__item>a span {
+		position: relative;
+		z-index: 2;
+	}
+
+	.nav-global__item>a::after {
 		content: "";
-		width: 98%;
+		width: 100%;
 		height: 100%;
 		display: block;
 		position: absolute;
@@ -113,13 +225,110 @@
 		left: 0;
 	}
 
-	.nav-item a span {
-		position: relative;
-		z-index: 2;
-	}
+	@media screen and (max-width: 767px) {
+		.nav-global__item>a::after {
+			height: calc(100% - 6px);
+			bottom: auto;
+			top: 3px;
+			left: 3px;
+			width: 4px;
+		}
 
-	.nav-item a:hover {
-		color: white;
+		.nav-global__item>a span::before {
+			font-family: icomoon !important;
+			speak: none;
+			font-style: normal;
+			font-weight: 400;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			content: "";
+			vertical-align: middle;
+			margin-right: 8px;
+			display: inline-block;
+			margin-top: -2px;
+		}
+
+		.nav-global__item>a span {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.nav-global__item>a::before {
+			font-family: icomoon !important;
+			speak: none;
+			font-style: normal;
+			font-weight: 400;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			content: ">";
+			position: absolute;
+			right: 15px;
+			position: absolute;
+			top: 50%;
+			-webkit-transform: translate(0, -50%);
+			transform: translate(0, -50%);
+			font-size: 1rem;
+		}
+
+		.nav-global__item>a {
+			text-align: left;
+			display: block;
+			padding: 15px;
+			border-bottom: 1px solid #CCC;
+			font-size: 1.3rem;
+			background: #FFF;
+		}
+
+		.nav-global__item {
+			width: 100%;
+			margin: 0;
+			height: auto !important;
+			min-height: auto;
+		}
+
+		.nav-global {
+			position: absolute;
+			z-index: 10;
+			width: 100%;
+			display: none;
+			left: 0;
+			top: 51px;
+			border-top: 1px solid #d1d1d1;
+		}
+
+		.nav-global__list {
+			display: block;
+		}
+
+		.nav-global__body {
+			position: relative;
+			z-index: 10;
+			background: #DFDFDF;
+		}
+
+		.global-header {
+			padding: 0;
+			position: relative;
+			height: 51px;
+		}
+
+		.global-header__body {
+			justify-content: center;
+		}
+
+		.global-header__site-name img {
+			width: 105px;
+		}
+
+		.ivu-layout-header {
+			height: 51px;
+		}
 	}
 
 	.game {
@@ -195,7 +404,7 @@
 
 	.nav-item-login img {
 		position: relative;
-		transform: translate(0, 35%);
+		/* transform: translate(0, 35%); */
 		border-radius: 50%;
 	}
 

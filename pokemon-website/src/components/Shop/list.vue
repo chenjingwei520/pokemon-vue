@@ -216,4 +216,8 @@
 		text-align: center;
 		padding: 32px;
 	}
+	
+	@media screen and (max-width: 767px){
+		
+	}
 </style>

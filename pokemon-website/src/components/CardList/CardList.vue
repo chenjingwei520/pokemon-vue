@@ -43,6 +43,16 @@
 		box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
 	}
 
+	@media screen and (max-width: 767px) {
+		.card-element {
+			width: calc(50% - 8px);
+			margin: 0 4px 15px;
+			float: left;
+		}
+	}
+
+
+
 	.card-element>a {
 		display: block;
 		text-decoration: none;
