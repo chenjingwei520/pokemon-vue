@@ -6,7 +6,7 @@
 			</Header>
 			<Content>
 				<div class="pokemon-carousel">
-					<CarouselPk></CarouselPk>
+					<CarouselPk :imgArray="imgArray"></CarouselPk>
 				</div>
 				<div class="content-main">
 					<BannerList></BannerList>
@@ -36,6 +36,13 @@
 		},
 		data() {
 			return {
+				imgArray: [
+					require('../../assets/carousel1.jpg'),
+					require('../../assets/carousel2.jpg'),
+					require('../../assets/carousel3.jpg'),
+					require('../../assets/carousel4.jpg'),
+					require('../../assets/carousel5.jpg')
+				],
 				card_list: [{
 						title: 'Dear players of the English Pokémon Trading Card Game and Pokémon Sword and Shield in Asia',
 						src: require('../../assets/game_zx1.jpg'),

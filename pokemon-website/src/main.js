@@ -14,6 +14,7 @@ import Shop from './components/Shop/Shop.vue'
 import Pokedex from './components/Pokedex/Pokedex.vue'
 import pokemon from './components/Pokedex/pokemon.vue'
 import Game from './components/Game/Game.vue'
+import CardGame from './components/CardGame/CardGame.vue'
 
 Vue.use(ViewUI);
 
@@ -42,11 +43,11 @@ const store = new Vuex.Store({
 			localStorage.id = json.id;
 			localStorage.isLogin = true;
 		},
-		
+
 	},
 	getters: {
 		getUser(state) {
-			if(!state.token) {
+			if (!state.token) {
 				state.token = localStorage.getItem('token');
 				state.isLogin = localStorage.getItem('isLogin');
 				state.id = localStorage.getItem('id');
@@ -92,6 +93,10 @@ const router = new VueRouter({
 		{
 			path: '/game',
 			component: Game
+		},
+		{
+			path: '/cardgame',
+			component: CardGame
 		}
 	],
 	//路由模式为历史模式

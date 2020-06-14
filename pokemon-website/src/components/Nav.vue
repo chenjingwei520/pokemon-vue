@@ -12,7 +12,7 @@
 				<router-link to="/game" class="game"><span>游戏</span></router-link>
 			</li>
 			<li class="nav-item">
-				<router-link to="/" class="card"><span>卡牌游戏</span></router-link>
+				<router-link to="/cardgame" class="card"><span>卡牌游戏</span></router-link>
 			</li>
 			<li class="nav-item">
 				<router-link to="/movie" class="movie"><span>电影</span></router-link>
